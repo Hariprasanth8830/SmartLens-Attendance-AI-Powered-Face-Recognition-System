@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Smart Attendance Dashboard</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="glass-bg"></div>
+    <div class="dashboard-container">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div>
+                <h1>SmartLens <span>Attendance</span></h1>
+                <p>AI-Powered Face Recognition System</p>
+            </div>
+            <div class="actions">
+                <button id="train-btn" class="btn btn-secondary" onclick="trainModel()">Model Training</button>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+
+            <!-- Left Side: Camera & Scanner -->
+            <div class="camera-section card glass">
+                <div class="card-header">
+                    <h2>Live Face Scanner</h2>
+                    <span class="status pulse">Active</span>
+                </div>
+
+                <div class="video-wrapper">
+                    <video id="webcam" autoplay playsinline></video>
+                    <canvas id="overlay" class="hidden"></canvas>
+                    <div class="scanner-line"></div>
+                </div>
+
+                <div class="controls">
+                    <button id="scan-btn" class="btn btn-primary" onclick="captureAndRecognize()">Capture & Mark
+                        Attendance</button>
+                </div>
+
+                <div id="result-box" class="result-box hidden">
+                    <!-- Result will be injected here -->
+                </div>
+            </div>
+
+            <!-- Right Side: Records Table -->
+            <div class="records-section card glass">
+                <div class="card-header">
+                    <h2>Today's Attendance</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-secondary" onclick="window.location.href='/api/download_csv'"
+                            title="Download Excel (CSV)">
+                            Download CSV
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearAttendance()" title="Clear Records for Next Day"
+                            style="background: #ef4444; color: white; border-color: #ef4444;">
+                            Clear Records
+                        </button>
+                        <button class="btn btn-icon" onclick="fetchRecords()" title="Refresh Records">
+                            &#x21bb;
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Register No</th>
+                                <th>Enroll No</th>
+                                <th>Student Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-body">
+                            <!-- Rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
